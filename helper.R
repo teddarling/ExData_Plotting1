@@ -1,25 +1,34 @@
+## Download the data file expected for the class from
+## https://d396qusza40orc.cloudfront.net/exdata%2Fdata%2Fhousehold_power_consumption.zip
+## See README.md for info about where the dataset is located.
+##
+## After downloading the file, get only the data from the dates
+## 2007-02-01 and 2007-02-02 as per the section "Loading the data" in README.md
 getData <- function(){
-    tempFile <- "consumption.zip"
+    ## This file just makes seeing things happen easier than trying
+    ## to determine where in a temp folder the real code is working.
+    #tempFile <- "consumption.zip"
     
-    #tempFile <- tempfile()
+    tempFile <- tempfile()
     
-    # Download our data from the file mentioned in the project assignment.
+    ## Download our data from the file mentioned in the project assignment.
     message("Downloading Data")
     download.file(
         "https://d396qusza40orc.cloudfront.net/exdata%2Fdata%2Fhousehold_power_consumption.zip", 
         tempFile)
     
-    # Unzip the temp file.
+    ## Unzip the temp file.
     message("Unzip the data file.")
     dataFile <- unzip(tempFile, files=c("household_power_consumption.txt"))
     
-    # Delete the zip file.
+    ## Delete the zip file.
     unlink(tempFile)
     
-    # Find the start and end point of the data that we want to read.
+    ## Find the start and end point of the data that we want to read.
     startLine <- grep("1/2/2007", readLines(dataFile))
     endLine <- grep("3/2/2007", readLines(dataFile))
     
+    ## Read the data for the rows where data is 2007-02-01 and 2007-02-02.
     message("Read rows we want.")
     data <- read.table(
         dataFile, 
@@ -38,9 +47,9 @@ getData <- function(){
             "Metering_2",
             "Metering_3"))
     
-    # Delete the data file.
+    ## Delete the data file.
     unlink(dataFile)
     
-    # Return the data
+    ## Return the data
     data
 }

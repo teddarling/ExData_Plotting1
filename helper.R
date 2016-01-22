@@ -41,6 +41,7 @@ getData <- function(){
         nrow = endLine[1] - startLine[1], 
         header = FALSE, 
         sep = ";",
+        na.strings = c("?"),
         col.names = c(
             "Date", 
             "Time", 
@@ -54,16 +55,23 @@ getData <- function(){
         colClasses = c(
             "dataDate", 
             "character", 
-            "character", 
-            "character", 
-            "character", 
-            "character", 
-            "character", 
-            "character", 
-            "character"))
+            "numeric", 
+            "numeric", 
+            "numeric", 
+            "numeric", 
+            "numeric", 
+            "numeric", 
+            "numeric"))
     
     ## Delete the data file.
     unlink(dataFile)
+    
+    ## Combine Date And Time columns to create a DateTime 
+    ## column with no timezone offset.
+    data$DateTime <- 
+        as.POSIXct(strptime(
+            paste(data$Date, data$Tim), 
+            format = "%Y-%m-%d %H:%M:%S"))
     
     ## Return the data
     data

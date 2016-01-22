@@ -14,10 +14,12 @@ plot1 <- function(data = NULL){
     png("plot1.png", width = 480, height = 480)
     
     ## Create a histograph to look similar to plot 1 in the assignment.
-    hist(data8$Active_power, 
+    hist(data$Global_active_power, 
          col = "red", 
          main = "Global Active Power", 
          xlab = "Global Active Power (kilowatts)", 
          ylab = "Frequency")
 
+    ## Get off the PNG graphics device.
+    dev.off()
 }

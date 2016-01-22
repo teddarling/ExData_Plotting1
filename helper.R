@@ -46,7 +46,7 @@ getData <- function(){
             "Date", 
             "Time", 
             "Global_active_power",
-            "Global_Reactive_power",
+            "Global_reactive_power",
             "Voltage",
             "Global_intensity",
             "Sub_metering_1",

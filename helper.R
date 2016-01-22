@@ -28,6 +28,11 @@ getData <- function(){
     startLine <- grep("1/2/2007", readLines(dataFile))
     endLine <- grep("3/2/2007", readLines(dataFile))
     
+    ## Handle the formatting of dates.
+    setClass("dataDate")
+    setAs("character","dataDate", function(from) as.Date(from, format="%d/%m/%Y"))
+    
+    
     ## Read the data for the rows where data is 2007-02-01 and 2007-02-02.
     message("Read rows we want.")
     data <- read.table(
@@ -45,7 +50,17 @@ getData <- function(){
             "Intensity",
             "Metering_1",
             "Metering_2",
-            "Metering_3"))
+            "Metering_3"),
+        colClasses = c(
+            "dataDate", 
+            "character", 
+            "character", 
+            "character", 
+            "character", 
+            "character", 
+            "character", 
+            "character", 
+            "character"))
     
     ## Delete the data file.
     unlink(dataFile)
